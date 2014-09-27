@@ -1,0 +1,63 @@
+\contentsline {chapter}{\numberline {1}Introduction}{5}
+\contentsline {chapter}{\numberline {2}Setup}{7}
+\contentsline {section}{\numberline {2.1}Building with UDG\_ShrimpIII}{7}
+\contentsline {subsection}{\numberline {2.1.1}Windows}{7}
+\contentsline {subsection}{\numberline {2.1.2}Linux (Ubuntu)}{8}
+\contentsline {chapter}{\numberline {3}UDG\_ShrimpIII API}{9}
+\contentsline {section}{\numberline {3.1}Data types and definitions}{9}
+\contentsline {subsection}{\numberline {3.1.1}\#define S\_ERROR\_UNKNOWN\_COMMAND 0x80 }{9}
+\contentsline {subsection}{\numberline {3.1.2}\#define S\_ERROR\_ARGUMENT 0x81}{9}
+\contentsline {subsection}{\numberline {3.1.3}\#define S\_ERROR\_I2C 0x82}{9}
+\contentsline {subsection}{\numberline {3.1.4}\#define S\_ERROR\_LIMIT\_REACHED 0x83}{9}
+\contentsline {subsection}{\numberline {3.1.5}\#define RAW\_BYTE unsigned char}{9}
+\contentsline {subsection}{\numberline {3.1.6}\#define SIGNED\_BYTE char}{9}
+\contentsline {subsection}{\numberline {3.1.7}\#define S\_BUFFER\_SIZE 1024}{9}
+\contentsline {subsection}{\numberline {3.1.8}\#define UNSIGNED\_INTEGER32 unsigned int}{10}
+\contentsline {subsection}{\numberline {3.1.9}\#define UNSIGNED\_INTEGER16 unsigned short}{10}
+\contentsline {subsection}{\numberline {3.1.10}struct FirmwareVersion}{10}
+\contentsline {subsection}{\numberline {3.1.11}struct WheelEncoders}{10}
+\contentsline {subsection}{\numberline {3.1.12}struct RobotStatus}{10}
+\contentsline {subsection}{\numberline {3.1.13}struct PowerSupplyStatus}{11}
+\contentsline {subsubsection}{SrvoAndMotorCommands}{11}
+\contentsline {subsubsection}{structDigitalInputs}{11}
+\contentsline {subsection}{\numberline {3.1.14}structRC5Frame}{12}
+\contentsline {section}{\numberline {3.2}UDG\_ShrimpIII class}{12}
+\contentsline {subsection}{\numberline {3.2.1}Public members}{12}
+\contentsline {subsubsection}{SIGNED\_BYTE velocity}{12}
+\contentsline {subsubsection}{SIGNED\_BYTE steeringAngle}{12}
+\contentsline {subsubsection}{WheelEncoders wheelEncoders}{12}
+\contentsline {subsubsection}{RobotStatus robotStatus}{13}
+\contentsline {subsubsection}{PowerSupplyStatus powerSupplyStatus}{13}
+\contentsline {subsubsection}{float voltage}{13}
+\contentsline {subsubsection}{SrvoAndMotorCommands servoAndMotorCommands}{13}
+\contentsline {subsection}{\numberline {3.2.2}DigitalInputs digitalInputs}{13}
+\contentsline {subsubsection}{RAW\_BYTE shrimpBuffer[S\_BUFFER\_SIZE]}{13}
+\contentsline {subsubsection}{ UDG\_ShrimpIII(const char* serialPortName)}{13}
+\contentsline {subsubsection}{\nobreakspace {}UDG\_ShrimpIII()}{14}
+\contentsline {subsubsection}{bool NoOperation()}{14}
+\contentsline {subsubsection}{bool ReadFirmwareVersion()}{14}
+\contentsline {subsubsection}{bool TurnRobotOn()}{14}
+\contentsline {subsubsection}{bool TurnRobotOff()}{14}
+\contentsline {subsubsection}{bool SetVelocityAndSteeringAngle(SIGNED\_BYTE velocity, SIGNED\_BYTE angle)}{14}
+\contentsline {subsubsection}{bool ReadVelocityAndSteeringAngle()}{15}
+\contentsline {subsubsection}{bool EmergencyStop()}{15}
+\contentsline {subsubsection}{ bool ReadWheelEncoderValues(WheelEncoders* encoders)}{15}
+\contentsline {subsubsection}{bool ReadRobotStatus(RobotStatus* status)}{15}
+\contentsline {subsubsection}{float ReadBatteryVoltage()}{16}
+\contentsline {subsubsection}{bool ReadPowerSupplyStatus(PowerSupplyStatus* status)}{16}
+\contentsline {subsubsection}{ bool DisableInfraredRemoteControl()}{16}
+\contentsline {subsubsection}{bool EnableInfraredRemoteControl()}{16}
+\contentsline {subsubsection}{bool MutePowerSupplyBuzzer()}{16}
+\contentsline {subsubsection}{bool UnmutePowerSupplyBuzzer()}{17}
+\contentsline {subsubsection}{bool WriteAn8BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, RAW\_BYTE value)}{17}
+\contentsline {subsubsection}{ bool ReadAn8BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, RAW\_BYTE* value)}{17}
+\contentsline {subsubsection}{bool WriteA32BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, UNSIGNED\_INTEGER32 value)}{17}
+\contentsline {subsubsection}{ bool ReadA32BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, UNSIGNED\_INTEGER32* value)}{17}
+\contentsline {subsubsection}{bool ReadLowLevelServoAndMotorCommands(SrvoAndMotorCommands* motors)}{17}
+\contentsline {subsubsection}{bool SystemReset()}{18}
+\contentsline {subsubsection}{bool ReadLastRC5Frame(RC5Frame* frame)}{18}
+\contentsline {subsubsection}{ bool ReadDigitalInputs(DigitalInputs* inputs)}{18}
+\contentsline {subsubsection}{ bool WriteLowLevelServoAndMotorCommands(SrvoAndMotorCommands motors)}{18}
+\contentsline {section}{\numberline {3.3}Private members}{18}
+\contentsline {subsubsection}{ bool ExecuteInstruction( RAW\_BYTE* response,int numberOfInstructionBytes,int numberOfResponseBytes,const char* name)}{18}
+\contentsline {chapter}{\numberline {4}Code sample}{19}

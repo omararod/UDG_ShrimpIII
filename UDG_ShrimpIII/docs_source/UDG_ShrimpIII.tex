@@ -1,0 +1,392 @@
+\documentclass{book}
+\title{UDG\_ShrimpIII user guide}
+\author{Omar Alejandro Rodr\'{i}guez Rosas}
+
+
+\usepackage{listings}
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Introduction}
+\chapter{Setup}
+Connect your computer to the robot using a serial cable. You can use a USB-to-serial converter if necessary.\\
+\section{Building with UDG\_ShrimpIII}
+This guide uses Microsoft Visual Studio Express for Desktop 2012 and Windows 8.1 or g++ 4.7 and Ubuntu 13.10. Other compiler/OS/Distribution combnations might work as well but haven't been tested.\\
+\subsection{Windows}
+1. Copy the UDG\_ShrimpIII release folder to a suitable location.\\
+2. Open your Visual Studio solution.\\
+3. As an optional step, you might want to add UDG\_ShrimpIII include (\textless{}Release\_Folder \textgreater\textbackslash{include}) and library (\textless{}Release\_Folder\textgreater\textbackslash{include}\textbackslash{bin}\textbackslash{\textless{}Architecture\textgreater}) directories to your default search folders. To do so, for the include folder go to Project\textbackslash{\textless{}Name\textgreater Properties}\textbackslash{Configuration Properties}\textbackslash{C/C++}\textbackslash{General} and enter the appropriate path in Additional Include Directories. Similarly, for the binary folder edit the Additional library directories property in  Project\textbackslash{\textless{}Name\textgreater{}Properties}\textbackslash{Configuration Properties}\textbackslash{Linker}\textbackslash{General}.\\
+4. Your source files should use \#include \textless UDG\_ShrimpIII.h\textgreater or \#include ``UDG\_ShrimpIII.h''\footnote{Remember that, when using quotes, If the header file is not on your current directory the full path should be included i.e. \#include ``c:\textbackslash{}foo\textbackslash{}bar\textbackslash{}UDG\_ShrimpIII.h''.}\\
+5. Make sure you're linking with UDG\_ShrimpIII.lib. To do so add UDG\_ShrimpIII.lib to Additional Dependencies in Project\textbackslash{\textless{}Name\textgreater{}Properties}\textbackslash{Configuration Properties}\textbackslash{Linker}\textbackslash{Input} or add \#pragma comment(lib,``UDG\_ShrimpIII.lib'') to your code. \footnote{Use the whole path if you skipped step 3.}\\
+ 
+\subsection{Linux (Ubuntu)}
+1. Copy the UDG\_ShrimpIII release folder to a suitable location.\\
+2. As an optional step you might want to place the header and library files into your default search directories. Typically you'll need to copy \textless{}Release\_Folder\textgreater{}/include/UDG\_ShrimpIII.h to /usr/include/ and \textless{}Release\_Folder\textgreater{}/bin/\textless{}Architecture\textgreater{}/libUDG\_ShrimpIII.a to /usr/lib.\footnote{These default libraries might vary depending on your compiler settings.}\\
+3. Your source files should use \#include \textless UDG\_ShrimpIII.h\textgreater or \#include ``UDG\_ShrimpIII.h''\footnote{Remember that, when using quotes, If the header file is not on your current directory the full path should be included or you can also use the -I option (see g++ help).}\\
+4. To build your application use -std=c++11 \footnote{ -std=c++0x might work as well if you're using an older g++ version} and link with -lUDG\_ShrimpIII.a \footnote{Or simply UDG\_ShrimpIII.a if you skipped step 2. If the file is not on your current folder you can use its whole path or the -L option (see g++ help).}
+
+
+\chapter{UDG\_ShrimpIII API}
+\section{Data types and definitions}
+
+\subsection{\#define S\_ERROR\_UNKNOWN\_COMMAND 0x80 }
+Error code that indicates an unknown command has been received. This is most likely a communication error.
+\subsection{\#define S\_ERROR\_ARGUMENT 0x81}
+Indicates that a wrong argument has been received by the robot.
+\subsection{\#define S\_ERROR\_I2C 0x82}
+Indicates an I\textsuperscript{2}C communication error.
+\subsection{\#define S\_ERROR\_LIMIT\_REACHED 0x83}
+Indicates that the upper limit for a given parameter has been reached. 
+
+\subsection{\#define RAW\_BYTE unsigned char}
+Unsigned byte-wide data type.
+\subsection{\#define SIGNED\_BYTE char}
+Signed byte-wide data type
+\subsection{\#define S\_BUFFER\_SIZE 1024}
+The default buffer size in bytes for the communication.
+\subsection{\#define UNSIGNED\_INTEGER32 unsigned int}
+Unsigned 32-bit integer.
+\subsection{\#define UNSIGNED\_INTEGER16 unsigned short}
+Unsigned 16 bit integer.
+
+\subsection{struct FirmwareVersion}
+
+\begin{lstlisting}
+struct FirmwareVersion
+{
+	RAW_BYTE major;
+	RAW_BYTE minor;
+	RAW_BYTE patch;
+};
+\end{lstlisting}
+A stuct to contain version information about the robot.
+
+\subsection{struct WheelEncoders}
+\begin{lstlisting}
+
+struct WheelEncoders{
+	UNSIGNED_INTEGER32 F;
+	UNSIGNED_INTEGER32 FL;
+	UNSIGNED_INTEGER32 FR;
+	UNSIGNED_INTEGER32 BL;
+	UNSIGNED_INTEGER32 BR;
+	UNSIGNED_INTEGER32 B;
+};
+
+\end{lstlisting}
+\textit{Value F:} current value of the front wheel encoder
+\textit{Value FL:} current value of the front left wheel encoder
+\textit{Value FR: }current value of the front right wheel encoder
+\textit{Value BL: }current value of the rear left wheel encoder
+\textit{Value BR: }current value of the rear right wheel encoder
+\textit{Value B: }current value of the rear wheel encoder
+
+Contains information from the robot's wheel encoders
+
+\subsection{struct RobotStatus}
+
+
+\begin{lstlisting}
+struct RobotStatus
+{
+	unsigned char ROB_ON :1;
+	unsigned char ROB_STOPPED :1;
+	unsigned char IR_ENABLED :1;
+	unsigned char UNUSED;
+};
+\end{lstlisting}
+
+
+\textit{ROB\_ON:}	Robot is switched on
+\textit{ROB\_STOPPED:}	Robot is stopped by an emergency stop
+\textit{IR\_ENABLED:}	Infrared remote control is enabled
+\textit{Bits 3 - 7:}	Unused 
+
+Contains general informatiomn about the robot status.
+
+\subsection{struct PowerSupplyStatus}
+
+\begin{lstlisting}
+struct PowerSupplyStatus
+{
+	RAW_BYTE ALL_OK :1;
+	RAW_BYTE IN_LOW :1;
+	RAW_BYTE VIN_MIN :1;
+	RAW_BYTE VIN_SECURE:1;
+	RAW_BYTE VIN_ERROR :1;
+	RAW_BYTE VIN_HI :1;
+	RAW_BYTE unused :1;
+	RAW_BYTE D2_OVER;
+};
+\end{lstlisting}
+
+\textit{ALL\_OK:}	Power supply is ok, i.e. none of the bits below are set
+\textit{IN\_LOW:}	Battery voltage is below first security threshold Vlow
+\textit{VIN\_MIN:}	Battery voltage is below second security threshold Vmin, power to motors and servos will be switched off
+\textit{VIN\_SECURE:}	Battery voltage is below third security threshold Vsecure, power supply will shut down
+\textit{VIN\_ERROR:}	Battery voltage is low and 2nd derivative is too high, power supply will shut down
+\textit{VIN\_HI:}	Battery voltage is above Vmax, power supply will shut down
+\textit{Bit 6:}	Unused	
+\textit{D2\_OVER:}	2nd derivative of battery voltage has been too high for a long time, power supply will shut down
+
+Contains general information about the robot's battery status.
+
+
+
+\subsubsection{SrvoAndMotorCommands}
+
+\begin{lstlisting}
+
+struct SrvoAndMotorCommands 
+{
+	UNSIGNED_INTEGER16 servoF;
+	UNSIGNED_INTEGER16 servoB;
+	UNSIGNED_INTEGER32 motorF;
+	UNSIGNED_INTEGER32 motorL;
+	UNSIGNED_INTEGER32 motorR;
+	UNSIGNED_INTEGER32 motorB;
+};
+\end{lstlisting}
+
+\textit{servoF:} command to the front servo
+\textit{servoB:} command to the rear servo
+\textit{motorF:} command to the front motor
+\textit{motorL:} command to the left motors
+\textit{motorR:} command to the right motors
+\textit{motorB:} command to the rear motor
+
+\subsubsection{structDigitalInputs}
+ \begin{lstlisting}
+
+struct DigitalInputs
+{
+	RAW_BYTE reserved0 :1;
+	RAW_BYTE nESTOP :1;
+	RAW_BYTE GPIO :1;
+	RAW_BYTE reserved3;
+};
+ \end{lstlisting}
+ 
+ \textit{Bit 0:}	Reserved
+ \textit{nESTOP:}		State of active-low emergency stop input
+ \textit{GPIO:}		State of general-purpose input
+ \textit{Bit 3 - 7:}	Reserved
+    
+Contains the status of the digital inputs 
+
+\subsection{structRC5Frame}
+
+\begin{lstlisting}
+
+
+struct RC5Frame
+{
+	RAW_BYTE address;
+	RAW_BYTE data;
+};
+ \end{lstlisting}
+ 
+ Contains information to communicate through RC5;
+
+\section{UDG\_ShrimpIII class}
+
+\subsection{Public members}
+Most of these fields update themselves when the appropriate function is called.\\
+\subsubitem{FirmwareVersion firmwareVersion}
+A FirmwareVersion struct to contain information about the firmware. Get updated when calling ReadFirmwareVersion().\\
+
+\subsubsection{SIGNED\_BYTE velocity} velocity at which the robot travels. This field gets updated when calling SetVelocityAndSteeringAngle() or ReadVelocityAndSteeringAngle(). The value might be innaccurate if it's not updated often.\\
+\subsubsection{SIGNED\_BYTE steeringAngle}
+Steering angle of the robot.  This field gets updated when calling SetVelocityAndSteeringAngle() or ReadVelocityAndSteeringAngle(). The value might be innaccurate if it's not updated often.\\
+
+\subsubsection{WheelEncoders wheelEncoders}
+Contains information about the robot's wheel encoders. This field gets updated when calling ReadWheelEncoderValues(). The value might be innaccurate if it's not updated often.\\
+
+\subsubsection{RobotStatus robotStatus}
+Contains information about the robot's general status. This field gets updated when calling ReadRobotStatus().The value might be innaccurate if it's not updated often.\\
+\subsubsection{PowerSupplyStatus powerSupplyStatus}
+Contains information about the robot's power supply. This field gets updated when calling ReadPowerSupplyStatus().The value might be innaccurate if it's not updated often.\\
+	
+\subsubsection{float voltage}
+Represents the battery voltage in volts. This field gets updated when calling ReadBatteryVoltage().The value might be innaccurate if it's not updated often.\\
+
+\subsubsection{SrvoAndMotorCommands servoAndMotorCommands}
+Contains information about the robot's motors. This field gets updated when calling WriteLowLevelServoAndMotorCommands() or ReadLowLevelServoAndMotorCommands.The value might be innaccurate if it's not updated often.\\
+
+\subsection{DigitalInputs digitalInputs}
+Contains information about the robot's digital inputs. This field gets updated when calling ReadDigitalInputs().The value might be innaccurate if it's not updated often.\\
+
+\subsubsection{RAW\_BYTE shrimpBuffer[S\_BUFFER\_SIZE]}
+This is the raw byte buffer for the robot. It should be used for debug purposes only.\\
+
+\subsubsection{	UDG\_ShrimpIII(const char* serialPortName)}
+Constructor method for the class. Receives a null terminated string representing the name of the associated serial port ("COMX on Windows or "/dev/ttyX" on Linux).\\
+
+\subsubsection{~UDG\_ShrimpIII()}
+Default destructor for the class.\\
+
+\subsubsection{bool NoOperation()}
+This command doesn't have any effect. It can be used as a "ping" to ensure that communication with the robot is working. It can also be used in case of loss of synchronization in the command stream: sending a string of 0x00 bytes at least as long as the longest command available ensures that the command following the 0x00 bytes will be interpreted correctly.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool ReadFirmwareVersion()}
+This command stores the version of the controller's firmware in firmwareVersion. Buffer receives |0x01| Major (8) |Minor (8) |Patch (8)|\\
+For example, for version 1.4.7, Major=1, Minor=4 and Patch=7.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool TurnRobotOn()}
+his command connects power to the motor and servo controllers, enabling the movement of the robot.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool TurnRobotOff()}
+This command removes power from the motor and servo controllers. Power consumption goes down to a minimum, so it can be used to conserve power when the robot is not moving.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool SetVelocityAndSteeringAngle(SIGNED\_BYTE velocity, SIGNED\_BYTE angle)}
+This command sets new target values for the linear velocity and steering angle of the robot. The motor and servo controllers will be reprogrammed immediately to reach the new targets. \\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\textit{Velocity (-127..127):} speed of the rear wheel. The value -127 is full speed backward, 127 is full speed forward, and 0 is stopped.\\
+\textit{angle (-90..90):} angle of the rear wheel relative to the straight line position, in degrees. Negative values are angles to the right (meaning that the robot will turn to the left), positive values to the left.\\
+Updates velocity and steering angle members.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool ReadVelocityAndSteeringAngle()}
+This command updates velocity and steeringAngle of the robot, and can be used for example to log the commands that are sent to the robot with the infrared remote control.\\
+Buffer receives |0x05| Velocity (8)| Steering angle (8) |\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool EmergencyStop()}
+This command stops all motors on the robot (i.e. sets their speeds to zero). The steering servo positions remain unchanged.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{	bool ReadWheelEncoderValues(WheelEncoders* encoders)}
+This command reads and returns the encoder values of all six wheels, allowing to make simple odometry calculations or to get a feeling of how far the robot has travelled. The wheelEncoders property will be updated. See struct WheelEncoders definition for more details.\\
+\textit{WheelEncoders* encoders:} pointer to a struct used as a return value, this is a copy of the value at wheelEncoders property. Set to null if it´s not important to you.\\
+Buffer Receives| 0x07| Value F (32) |Value FL (32) |Value FR (32)| Value BL (32)| Value BR (32)| Value B (32) |\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool ReadRobotStatus(RobotStatus* status)}
+This command returns the current status of the robot. Updates the robotStatus property and, if provided, stores the same value at status, a pointer to a RobotStatus struct.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{float ReadBatteryVoltage()}
+This command reads the current voltage of the battery on the robot. It is updated about once per second, so reading it more often will return the same value between updates. Automatically updates voltage property.
+\textbf{Return value:} The voltage as a float value. Returns 0 if an error occurs.\\
+Buffer receives | 0x09| Battery voltage (8) |\\
+\textbf{NOTE: } The battery voltage received at the buffer must be multiplied by 0.0625f to obtain the actual value. Both the return value and the property update autmatically perfrom this multiplication.\\
+
+
+\subsubsection{bool ReadPowerSupplyStatus(PowerSupplyStatus* status)}
+This command returns the current status of the power supply controller. It reports any problems the power supply controller could identify, for example low battery states. The security thresholds satisfy the following condition:\\
+$V_{min} < V_{secure} < V_{low} < V_{max}$\\
+Updates the powerSupplyStatus property and, if provided, stores the same value at status, a pointer to a powerSupplyStatus struct.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{	bool DisableInfraredRemoteControl()}
+This command disables the infrared remote control decoder. It can be useful if the robot is controlled through RS-232 and there are infrared transmitters in the vincinity.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool EnableInfraredRemoteControl()}
+This command enables the infrared remote control decoder.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool MutePowerSupplyBuzzer()}
+On power-up, the power supply controller is programmed to make various sounds when the battery level goes below certain thresholds. This command mutes those sounds.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool UnmutePowerSupplyBuzzer()}
+This command enables batter-level sounds of the power supply controller. This is the default power-up state.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool WriteAn8BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, RAW\_BYTE value)}
+This command writes an 8-bit register on an I2C module. The master acts as a pass-through.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{	bool ReadAn8BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, RAW\_BYTE* value)}
+This command reads an 8-bit register from an I2C module. The master acts as a pass-through. The value is stored at value, a pointer to a RAW\_BYTE variable.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool WriteA32BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, UNSIGNED\_INTEGER32 value)}
+This command writes a 32-bit register on an I2C module. The master acts as a pass-through.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{	bool ReadA32BitRegisterOnAnI2CModule(RAW\_BYTE moduleAddress, RAW\_BYTE registerAddress, UNSIGNED\_INTEGER32* value)}
+This command reads a 32-bit register from an I2C module. The master acts as a pass-through. The value is stored at value, a pointer to a UNSIGNED\_INTEGER32 variable.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool ReadLowLevelServoAndMotorCommands(SrvoAndMotorCommands* motors)}
+This command reads and returns the low-level commands sent to the servos and motors. It should only be used as a debugging aid.\\
+Buffer receives |0x13 |Servo F (16)| Servo B (16)| Motor F (32)| Motor L (32)| Motor R (32)| Motor B (32)|\\
+\subsubsection{bool SystemReset()}
+This command resets the main controller and re-initializes the complete system.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{bool ReadLastRC5Frame(RC5Frame* frame)}
+NO INFO
+\subsubsection{	bool ReadDigitalInputs(DigitalInputs* inputs)}
+This command returns the current state of the digital inputs to the microcontroller. The emergency stop input is active-low, i.e. the robot is stopped when nESTOP=0.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\subsubsection{	bool WriteLowLevelServoAndMotorCommands(SrvoAndMotorCommands motors)}
+This command writes low-level commands directly to the servos and motors, bypassing the robot model. No checking is done on the values, such as out-of-bounds conditions, so it might be possible to damage the hardware by writing bad values. This command should normally not be used.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+
+\section{Private members}
+\subsubsection{	bool ExecuteInstruction( RAW\_BYTE* response,int numberOfInstructionBytes,int numberOfResponseBytes,const char* name)}
+Reads/Writes instructions from/to the serial port.\\
+\textbf{Return value: }True if the function succeeds, false if it doesn't.\\ 
+\chapter{Code sample}
+The following source code (for both linux and windows) demonstrates some of the common operations the robot can perform. Notice how some functions return a value, others update the robot's properties and some can do both using an external pointer that can be ignored by setting it to NULL.\\
+\begin{lstlisting}
+#include "UDG_ShrimpIII.h"
+#include <stdio.h>
+#ifdef __linux
+#include <unistd.h>
+#else
+#include <Windows.h>
+#endif
+int main()
+{
+	DigitalInputs dInputs;
+	WheelEncoders wEncoders;
+	//intialization
+	UDG_ShrimpIII robot("COM3");
+	//Start receiving serial commands
+	robot.TurnRobotOn();
+	//ping the robot. Ignoring return value
+	robot.NoOperation();
+	//update UDG_ShrimpIII properties directly 
+	if(robot.ReadBatteryVoltage())
+		printf("voltage: %fv\n",robot.voltage);
+	if(robot.ReadFirmwareVersion())
+		printf("Firware version: %i.%i.%i\n",robot.firmwareVersion.major,
+		robot.firmwareVersion.minor,robot.firmwareVersion.patch);
+	//Update properties and store reading to a variable to be used later
+	if(!robot.ReadDigitalInputs(&dInputs))
+		printf("error reading digital inputs\n");			
+	if(!robot.ReadWheelEncoderValues(&wEncoders))
+		printf("Error reading wheel encoders\n");
+	//Update properties without saving value to a variable
+	if(!robot.ReadRobotStatus(NULL))
+		printf("Error reading robot status\n");
+	//use previously stored values
+	printf("Digital inputs: GPIO = %X	nESTOP = %X\n",dInputs.GPIO, dInputs.nESTOP);
+	printf("Wheel encoders: B = %u	BL = %u	BR = %u	F = %u	FL = %u	FR = %u\n	",wEncoders.B,wEncoders.BL, wEncoders.BR, wEncoders.F,wEncoders.FL,wEncoders.FR);
+	//move in a staight line for 2 seconds
+	robot.SetVelocityAndSteeringAngle(20,0);
+#ifdef __linux
+sleep(2)
+#else
+	Sleep(2000);
+
+#endif
+	robot.SetVelocityAndSteeringAngle(0,0);
+
+
+	robot.TurnRobotOff();
+
+	return 0;
+}
+\end{lstlisting}
+\end{document}

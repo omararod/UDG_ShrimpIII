@@ -1,0 +1,1463 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.3.9: http://docutils.sourceforge.net/" />
+<title>Controlling the Shrimp III</title>
+<meta name="author" content="Rémy Blank &lt;remy.blank&#64;bluebotics.com&gt;" />
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-05-26 12:51:39 +0200 (Thu, 26 May 2005) $
+:Version: $Revision: 3368 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+*/
+
+/* "! important" is used here to override other ``margin-top`` and
+   ``margin-bottom`` styles that are later in the stylesheet or 
+   more specific.  See http://www.w3.org/TR/CSS1#the-cascade */
+.first {
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em }
+
+div.footer, div.header {
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.line-block {
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (<h#> element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid thin gray }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid thin black }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="controlling-the-shrimp-iii">
+<h1 class="title">Controlling the Shrimp III</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Rémy Blank &lt;<a class="reference" href="mailto:remy.blank&#64;bluebotics.com">remy.blank&#64;bluebotics.com</a>&gt;</td></tr>
+<tr><th class="docinfo-name">Revision:</th>
+<td>2006.05.17</td></tr>
+<tr class="field"><th class="docinfo-name">Fw version:</th><td class="field-body">1.0.3</td>
+</tr>
+</tbody>
+</table>
+<p>This document describes the format of the commands that can be sent to the Shrimp
+through its RS-232 link, and their replies, as well as the set of commands that 
+are available.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first"><a name="contents">Contents</a></p>
+<ul class="simple">
+<li><a class="reference" href="#frame-format" id="id2" name="id2">Frame format</a><ul>
+<li><a class="reference" href="#commands" id="id3" name="id3">Commands</a></li>
+<li><a class="reference" href="#replies" id="id4" name="id4">Replies</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#command-catalog" id="id5" name="id5">Command catalog</a><ul>
+<li><a class="reference" href="#nop-no-operation" id="id6" name="id6">0x00: No operation</a></li>
+<li><a class="reference" href="#ver-read-firmware-version" id="id7" name="id7">0x01: Read firmware version</a></li>
+<li><a class="reference" href="#ton-turn-robot-on" id="id8" name="id8">0x02: Turn robot on</a></li>
+<li><a class="reference" href="#tof-turn-robot-off" id="id9" name="id9">0x03: Turn robot off</a></li>
+<li><a class="reference" href="#sva-set-velocity-and-steering-angle" id="id10" name="id10">0x04: Set velocity and steering angle</a></li>
+<li><a class="reference" href="#rva-read-velocity-and-steering-angle" id="id11" name="id11">0x05: Read velocity and steering angle</a></li>
+<li><a class="reference" href="#stp-stop-robot-emergency-stop" id="id12" name="id12">0x06: Stop robot (emergency stop)</a></li>
+<li><a class="reference" href="#ren-read-wheel-encoder-values" id="id13" name="id13">0x07: Read wheel encoder values</a></li>
+<li><a class="reference" href="#rst-read-robot-status" id="id14" name="id14">0x08: Read robot status</a></li>
+<li><a class="reference" href="#vlt-read-battery-voltage" id="id15" name="id15">0x09: Read battery voltage</a></li>
+<li><a class="reference" href="#pst-read-power-supply-status" id="id16" name="id16">0x0a: Read power supply status</a></li>
+<li><a class="reference" href="#dir-disable-infrared-remote-control" id="id17" name="id17">0x0b: Disable infrared remote control</a></li>
+<li><a class="reference" href="#eir-enable-infrared-remote-control" id="id18" name="id18">0x0c: Enable infrared remote control</a></li>
+<li><a class="reference" href="#dbz-mute-power-supply-buzzer" id="id19" name="id19">0x0d: Mute power supply buzzer</a></li>
+<li><a class="reference" href="#ebz-unmute-power-supply-buzzer" id="id20" name="id20">0x0e: Unmute power supply buzzer</a></li>
+<li><a class="reference" href="#iw8-write-an-8-bit-register-on-an-i2c-module" id="id21" name="id21">0x0f: Write an 8-bit register on an I2C module</a></li>
+<li><a class="reference" href="#ir8-read-an-8-bit-register-from-an-i2c-module" id="id22" name="id22">0x10: Read an 8-bit register from an I2C module</a></li>
+<li><a class="reference" href="#iw3-write-a-32-bit-register-on-an-i2c-module" id="id23" name="id23">0x11: Write a 32-bit register on an I2C module</a></li>
+<li><a class="reference" href="#ir3-read-a-32-bit-register-from-an-i2c-module" id="id24" name="id24">0x12: Read a 32-bit register from an I2C module</a></li>
+<li><a class="reference" href="#rcm-read-low-level-servo-and-motor-commands" id="id25" name="id25">0x13: Read low-level servo and motor commands</a></li>
+<li><a class="reference" href="#rst-system-reset" id="id26" name="id26">0x14: System reset</a></li>
+<li><a class="reference" href="#rc5-read-last-rc5-frame" id="id27" name="id27">0x15: Read last RC5 frame</a></li>
+<li><a class="reference" href="#inp-read-digital-inputs" id="id28" name="id28">0x16: Read digital inputs</a></li>
+<li><a class="reference" href="#wcm-write-low-level-servo-and-motor-commands" id="id29" name="id29">0x17: Write low-level servo and motor commands</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="frame-format">
+<h1><a class="toc-backref" href="#id2" name="frame-format">Frame format</a></h1>
+<p>Commands and replies are sent in a binary format over the RS-232 interface. They 
+are encapsulated in a very simple frame format. The RS-232 communication parameters 
+are <tt class="docutils literal"><span class="pre">57600,8,n,1</span></tt>, i.e. 57600 bits/s, 8 bits per character, no parity, 1 stop bit.
+No hardware flow control is used. However, flow control is implicitly done in 
+software, as the client should always wait for the reply to a command before sending
+the next one.</p>
+<p>Multi-byte values are sent LSB first. For example, the 16-bit value 0x1234 would 
+be sent as (0x34, 0x12), and the 32-bit value 0x12345678 would be sent as 
+(0x78, 0x56, 0x34, 0x12).</p>
+<div class="section" id="commands">
+<h2><a class="toc-backref" href="#id3" name="commands">Commands</a></h2>
+<p>A command frame starts with one byte containing the identifier of the command to 
+execute, followed by the command arguments (if any) as defined in <a class="reference" href="#frame-format">Frame format</a>. 
+The number and sizes of the arguments are specified for each command.</p>
+</div>
+<div class="section" id="replies">
+<h2><a class="toc-backref" href="#id4" name="replies">Replies</a></h2>
+<p>A reply frame starts with one byte containing the identifier of the command for
+which it is a reply, followed by the reply arguments (if any) as defined in 
+<a class="reference" href="#frame-format">Frame format</a>. The number and sizes of the arguments are specified for each
+command.</p>
+<p>In case of an error while executing the command, an 8-bit status code will be
+returned instead of the command identifier, and no reply arguments will be present.
+An error status always has its highest bit set. The following status codes are 
+defined:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x80</td>
+<td>Unknown command</td>
+</tr>
+<tr><td>0x81</td>
+<td>Argument error</td>
+</tr>
+<tr><td>0x82</td>
+<td>I2C communication error</td>
+</tr>
+<tr><td>0x83</td>
+<td>Limit reached (e.g. maximum speed)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div>
+</div>
+<div class="section" id="command-catalog">
+<h1><a class="toc-backref" href="#id5" name="command-catalog">Command catalog</a></h1>
+<p>The command catalog below shows every command available, with its arguments and
+the reply that is sent by the robot on successful completion. The sizes of the
+arguments are given between parentheses, and represent a number of bits.</p>
+<div class="section" id="nop-no-operation">
+<h2><a class="toc-backref" href="#id6" name="nop-no-operation">0x00: No operation</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x00</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x00</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command doesn't have any effect. It can be used as a &quot;ping&quot; to 
+ensure that communication with the robot is working. It can also be
+used in case of loss of synchronization in the command stream: sending
+a string of 0x00 bytes at least as long as the longest command available
+ensures that the command following the 0x00 bytes will be interpreted
+correctly.</blockquote>
+</div>
+<div class="section" id="ver-read-firmware-version">
+<h2><a class="toc-backref" href="#id7" name="ver-read-firmware-version">0x01: Read firmware version</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x01</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="28%" />
+<col width="28%" />
+<col width="28%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x01</td>
+<td>Major (8)</td>
+<td>Minor (8)</td>
+<td>Patch (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Major:</strong> Major version number</li>
+<li><strong>Minor:</strong> Minor version number</li>
+<li><strong>Patch:</strong> Patch number</li>
+</ul>
+<p>For example, for version 1.4.7, Major=1, Minor=4 and Patch=7.</p>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command returns the version of the controller's firmware.</blockquote>
+</div>
+<div class="section" id="ton-turn-robot-on">
+<h2><a class="toc-backref" href="#id8" name="ton-turn-robot-on">0x02: Turn robot on</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x02</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x02</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command connects power to the motor and servo controllers, enabling
+the movement of the robot.</blockquote>
+</div>
+<div class="section" id="tof-turn-robot-off">
+<h2><a class="toc-backref" href="#id9" name="tof-turn-robot-off">0x03: Turn robot off</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x03</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x03</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command removes power from the motor and servo controllers. Power
+consumption goes down to a minimum, so it can be used to conserve power
+when the robot is not moving.</blockquote>
+</div>
+<span id="sva"></span><div class="section" id="sva-set-velocity-and-steering-angle">
+<h2><a class="toc-backref" href="#id10" name="sva-set-velocity-and-steering-angle">0x04: Set velocity and steering angle</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="43%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x04</td>
+<td>Velocity (8)</td>
+<td>Steering angle (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Velocity (-127..127):</strong> speed of the rear wheel. The value -127 is full 
+speed backward, 127 is full speed forward, and 0 is stopped.</li>
+<li><strong>Steering angle (-90..90):</strong> angle of the rear wheel relative to the 
+straight line position, in degrees. Negative values are angles to the right 
+(meaning that the robot will turn to the left), positive values to the left.</li>
+</ul>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x04</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command sets new target values for the linear velocity and steering angle
+of the robot. The motor and servo controllers will be reprogrammed immediately
+to reach the new targets.</blockquote>
+</div>
+<div class="section" id="rva-read-velocity-and-steering-angle">
+<h2><a class="toc-backref" href="#id11" name="rva-read-velocity-and-steering-angle">0x05: Read velocity and steering angle</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x05</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="43%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x05</td>
+<td>Velocity (8)</td>
+<td>Steering angle (8)</td>
+</tr>
+</tbody>
+</table>
+<p>For a description of the parameters, see <a class="reference" href="#sva">Set velocity and steering angle</a>.</p>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command returns the current velocity and steering angle of the robot, and 
+can be used for example to log the commands that are sent to the robot with the 
+infrared remote control.</blockquote>
+</div>
+<div class="section" id="stp-stop-robot-emergency-stop">
+<h2><a class="toc-backref" href="#id12" name="stp-stop-robot-emergency-stop">0x06: Stop robot (emergency stop)</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x06</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x06</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command stops all motors on the robot (i.e. sets their speeds to zero). 
+The steering servo positions remain unchanged.</blockquote>
+</div>
+<div class="section" id="ren-read-wheel-encoder-values">
+<h2><a class="toc-backref" href="#id13" name="ren-read-wheel-encoder-values">0x07: Read wheel encoder values</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x07</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x07</td>
+<td>Value F (32)</td>
+<td>Value FL (32)</td>
+<td>Value FR (32)</td>
+<td>Value BL (32)</td>
+<td>Value BR (32)</td>
+<td>Value B (32)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Value F:</strong> current value of the front wheel encoder</li>
+<li><strong>Value FL:</strong> current value of the front left wheel encoder</li>
+<li><strong>Value FR:</strong> current value of the front right wheel encoder</li>
+<li><strong>Value BL:</strong> current value of the rear left wheel encoder</li>
+<li><strong>Value BR:</strong> current value of the rear right wheel encoder</li>
+<li><strong>Value B:</strong> current value of the rear wheel encoder</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command reads and returns the encoder values of all six wheels, allowing to make
+simple odometry calculations or to get a feeling of how far the robot has travelled.</blockquote>
+</div>
+<div class="section" id="rst-read-robot-status">
+<h2><a class="toc-backref" href="#id14" name="rst-read-robot-status">0x08: Read robot status</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x08</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x08</td>
+<td>Status (8)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first"><strong>Status:</strong> current robot status. The bits set in Status have the following meanings:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="21%" />
+<col width="67%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><p class="first last">Bit 0</p>
+</td>
+<td><p class="first last">ROB_ON</p>
+</td>
+<td><p class="first last">Robot is switched on</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 1</p>
+</td>
+<td><p class="first last">ROB_STOPPED</p>
+</td>
+<td><p class="first last">Robot is stopped by an emergency stop</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 2</p>
+</td>
+<td><p class="first last">IR_ENABLED</p>
+</td>
+<td><p class="first last">Infrared remote control is enabled</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 3
+- 7</p>
+</td>
+<td>&nbsp;</td>
+<td><p class="first last">Unused</p>
+</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command returns the current status of the robot.</blockquote>
+</div>
+<div class="section" id="vlt-read-battery-voltage">
+<h2><a class="toc-backref" href="#id15" name="vlt-read-battery-voltage">0x09: Read battery voltage</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x09</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x09</td>
+<td>Battery voltage (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Battery voltage:</strong> current battey voltage in units of 0.0625 Volts, i.e. 
+multiply the value by 0.0625 to get the value in Volts.</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command reads the current voltage of the battery on the robot. It is
+updated about once per second, so reading it more often will return the same
+value between updates.</blockquote>
+</div>
+<div class="section" id="pst-read-power-supply-status">
+<h2><a class="toc-backref" href="#id16" name="pst-read-power-supply-status">0x0a: Read power supply status</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0a</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0a</td>
+<td>Status (8)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first"><strong>Status:</strong> current power supply status. The bits set in Status have the following
+meanings:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="15%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><p class="first last">Bit 0</p>
+</td>
+<td><p class="first last">ALL_OK</p>
+</td>
+<td><p class="first last">Power supply is ok, i.e. none of the bits below are set</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 1</p>
+</td>
+<td><p class="first last">VIN_LOW</p>
+</td>
+<td><p class="first last">Battery voltage is below first security threshold Vlow</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 2</p>
+</td>
+<td><p class="first last">VIN_MIN</p>
+</td>
+<td><p class="first last">Battery voltage is below second security threshold Vmin,
+power to motors and servos will be switched off</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 3</p>
+</td>
+<td><p class="first last">VIN_SECURE</p>
+</td>
+<td><p class="first last">Battery voltage is below third security threshold Vsecure,
+power supply will shut down</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 4</p>
+</td>
+<td><p class="first last">VIN_ERROR</p>
+</td>
+<td><p class="first last">Battery voltage is low and 2nd derivative is too high,
+power supply will shut down</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 5</p>
+</td>
+<td><p class="first last">VIN_HI</p>
+</td>
+<td><p class="first last">Battery voltage is above Vmax, power supply will shut down</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 6</p>
+</td>
+<td>&nbsp;</td>
+<td><p class="first last">Unused</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 7</p>
+</td>
+<td><p class="first last">D2_OVER</p>
+</td>
+<td><p class="first last">2nd derivative of battery voltage has been too high for
+a long time, power supply will shut down</p>
+</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+<p>This command returns the current status of the power supply controller. It reports
+any problems the power supply controller could identify, for example low battery states.
+The security thresholds satisfy the following condition:</p>
+<pre class="literal-block">
+Vmin &lt; Vsecure &lt; Vlow &lt; Vmax
+</pre>
+</blockquote>
+</div>
+<div class="section" id="dir-disable-infrared-remote-control">
+<h2><a class="toc-backref" href="#id17" name="dir-disable-infrared-remote-control">0x0b: Disable infrared remote control</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0b</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0b</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command disables the infrared remote control decoder. It can be useful if the
+robot is controlled through RS-232 and there are infrared transmitters in the 
+vincinity.</blockquote>
+</div>
+<div class="section" id="eir-enable-infrared-remote-control">
+<h2><a class="toc-backref" href="#id18" name="eir-enable-infrared-remote-control">0x0c: Enable infrared remote control</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0c</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0c</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command enables the infrared remote control decoder.</blockquote>
+</div>
+<div class="section" id="dbz-mute-power-supply-buzzer">
+<h2><a class="toc-backref" href="#id19" name="dbz-mute-power-supply-buzzer">0x0d: Mute power supply buzzer</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0d</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0d</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+On power-up, the power supply controller is programmed to make various sounds
+when the battery level goes below certain thresholds. This command mutes those
+sounds.</blockquote>
+</div>
+<div class="section" id="ebz-unmute-power-supply-buzzer">
+<h2><a class="toc-backref" href="#id20" name="ebz-unmute-power-supply-buzzer">0x0e: Unmute power supply buzzer</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0e</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0e</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command enables batter-level sounds of the power supply controller. This
+is the default power-up state.</blockquote>
+</div>
+<div class="section" id="iw8-write-an-8-bit-register-on-an-i2c-module">
+<h2><a class="toc-backref" href="#id21" name="iw8-write-an-8-bit-register-on-an-i2c-module">0x0f: Write an 8-bit register on an I2C module</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="30%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0f</td>
+<td>Module address (8)</td>
+<td>Register address (8)</td>
+<td>Value (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Module address:</strong> address of the module on the I2C bus</li>
+<li><strong>Register address:</strong> register number within the module</li>
+<li><strong>Value:</strong> value to be written</li>
+</ul>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x0f</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command writes an 8-bit register on an I2C module. The master acts as a
+pass-through.</blockquote>
+</div>
+<div class="section" id="ir8-read-an-8-bit-register-from-an-i2c-module">
+<h2><a class="toc-backref" href="#id22" name="ir8-read-an-8-bit-register-from-an-i2c-module">0x10: Read an 8-bit register from an I2C module</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="43%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x10</td>
+<td>Module address (8)</td>
+<td>Register address (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Module address:</strong> address of the module on the I2C bus</li>
+<li><strong>Register address:</strong> register number within the module</li>
+</ul>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x10</td>
+<td>Value (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Value:</strong> Value of the selected register</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command reads an 8-bit register from an I2C module. The master acts as a
+pass-through.</blockquote>
+</div>
+<div class="section" id="iw3-write-a-32-bit-register-on-an-i2c-module">
+<h2><a class="toc-backref" href="#id23" name="iw3-write-a-32-bit-register-on-an-i2c-module">0x11: Write a 32-bit register on an I2C module</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="30%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x11</td>
+<td>Module address (8)</td>
+<td>Register address (8)</td>
+<td>Value (32)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Module address:</strong> address of the module on the I2C bus</li>
+<li><strong>Register address:</strong> register number within the module</li>
+<li><strong>Value:</strong> value to be written</li>
+</ul>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x11</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command writes a 32-bit register on an I2C module. The master acts as a
+pass-through.</blockquote>
+</div>
+<div class="section" id="ir3-read-a-32-bit-register-from-an-i2c-module">
+<h2><a class="toc-backref" href="#id24" name="ir3-read-a-32-bit-register-from-an-i2c-module">0x12: Read a 32-bit register from an I2C module</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="43%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x12</td>
+<td>Module address (8)</td>
+<td>Register address (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Module address:</strong> address of the module on the I2C bus</li>
+<li><strong>Register address:</strong> register number within the module</li>
+</ul>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x12</td>
+<td>Value (32)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Value:</strong> Value of the selected register</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command reads a 32-bit register from an I2C module. The master acts as a
+pass-through.</blockquote>
+</div>
+<div class="section" id="rcm-read-low-level-servo-and-motor-commands">
+<h2><a class="toc-backref" href="#id25" name="rcm-read-low-level-servo-and-motor-commands">0x13: Read low-level servo and motor commands</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x13</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x13</td>
+<td>Servo F (16)</td>
+<td>Servo B (16)</td>
+<td>Motor F (32)</td>
+<td>Motor L (32)</td>
+<td>Motor R (32)</td>
+<td>Motor B (32)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Servo F:</strong> current command to the front servo</li>
+<li><strong>Servo B:</strong> current command to the rear servo</li>
+<li><strong>Motor F:</strong> current command to the front motor</li>
+<li><strong>Motor L:</strong> current command to the left motors</li>
+<li><strong>Motor R:</strong> current command to the right motors</li>
+<li><strong>Motor B:</strong> current command to the rear motor</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command reads and returns the low-level commands sent to the servos and motors.
+It should only be used as a debugging aid.</blockquote>
+</div>
+<div class="section" id="rst-system-reset">
+<h2><a class="toc-backref" href="#id26" name="rst-system-reset">0x14: System reset</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x14</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x14</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command resets the main controller and re-initializes the complete system.</blockquote>
+</div>
+<div class="section" id="rc5-read-last-rc5-frame">
+<h2><a class="toc-backref" href="#id27" name="rc5-read-last-rc5-frame">0x15: Read last RC5 frame</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x15</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="39%" />
+<col width="39%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x15</td>
+<td>Address (8)</td>
+<td>Data (8)</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Address:</strong> address field of last RC5 frame</li>
+<li><strong>Data:</strong> data field of last RC5 frame</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command reads the contents of the last RC5 frame received by infrared.</blockquote>
+</div>
+<div class="section" id="inp-read-digital-inputs">
+<h2><a class="toc-backref" href="#id28" name="inp-read-digital-inputs">0x16: Read digital inputs</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x16</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x16</td>
+<td>Value (8)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p class="first"><strong>Value:</strong> current state of the digital inputs. The bits have the following meanings:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="15%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><p class="first last">Bit 0</p>
+</td>
+<td><p class="first last">Reserved</p>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td><p class="first last">Bit 1</p>
+</td>
+<td><p class="first last">nESTOP</p>
+</td>
+<td><p class="first last">State of active-low emergency stop input</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 2</p>
+</td>
+<td><p class="first last">GPIO</p>
+</td>
+<td><p class="first last">State of general-purpose input</p>
+</td>
+</tr>
+<tr><td><p class="first last">Bit 3
+- 7</p>
+</td>
+<td><p class="first last">Reserved</p>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command returns the current state of the digital inputs to the microcontroller.
+The emergency stop input is active-low, i.e. the robot is stopped when <tt class="docutils literal"><span class="pre">nESTOP=0</span></tt>.</blockquote>
+</div>
+<div class="section" id="wcm-write-low-level-servo-and-motor-commands">
+<h2><a class="toc-backref" href="#id29" name="wcm-write-low-level-servo-and-motor-commands">0x17: Write low-level servo and motor commands</a></h2>
+<p><em>Command</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x17</td>
+<td>Servo F (16)</td>
+<td>Servo B (16)</td>
+<td>Motor F (32)</td>
+<td>Motor L (32)</td>
+<td>Motor R (32)</td>
+<td>Motor B (32)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><em>Reply</em>:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>0x17</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><strong>Servo F:</strong> command to the front servo</li>
+<li><strong>Servo B:</strong> command to the rear servo</li>
+<li><strong>Motor F:</strong> command to the front motor</li>
+<li><strong>Motor L:</strong> command to the left motors</li>
+<li><strong>Motor R:</strong> command to the right motors</li>
+<li><strong>Motor B:</strong> command to the rear motor</li>
+</ul>
+</blockquote>
+<p><em>Description</em>:</p>
+<blockquote>
+This command writes low-level commands directly to the servos and motors, bypassing the 
+robot model. No checking is done on the values, such as out-of-bounds conditions, so it
+might be possible to damage the hardware by writing bad values. This command should
+normally not be used.</blockquote>
+</div>
+</div>
+</div>
+</body>
+</html>
